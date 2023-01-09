@@ -16,6 +16,8 @@ export default function Navigation() {
             <Nav className="me-auto"> 
               <Nav.Link href='/main' >  Characters </Nav.Link>
               <Nav.Link href='/types'> Types  </Nav.Link>
+              <Nav.Link href='/catched'> Catched  </Nav.Link>
+              
             </Nav>
           </Navbar.Collapse>
         </Container>

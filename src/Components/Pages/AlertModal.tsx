@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { Modal, Button} from "react-bootstrap";
+import { Modal, Button, Row, Col } from "react-bootstrap";
 
 /*
--This components is a pop up window. It's appear when somebody start the game,
-and click the Character menu. There is a Welcome text and a back button.
+-This is a Pop Up Window, when somebody added an item into the Catch List, this window will pop up. 
 */
-export default class Welcome extends Component {
+export default class AlterModal extends Component {
     constructor(props) {
         super(props);
     }
@@ -16,15 +15,17 @@ export default class Welcome extends Component {
                 <Modal {...this.props} size="lg" centered>
                     <Modal.Header closeButton>
                         <Modal.Title >
-                            Pokemon Game
+                            Catched successfull the pokemon.
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p> -In this menu item, you can view the pokemons in the game. <br/> 
-                    -It is possible to list Pokémon by type and search by name in the search menu. <br/>
-                    Another function is catching pokemon, where you can collect the pokemon you want to catch. <br/></p>
-                   
-                   <h2>Enjoy the game!</h2> 
+                        <Row>
+                            <Col>
+                                <h5>
+                                    You can check the catched pokemon list in the Catched menu!<br />
+                                    If you want to remove an item your list, you can press the remove button.</h5>
+                            </Col>
+                        </Row>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="danger" onClick={this.props.onHide}>

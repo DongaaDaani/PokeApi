@@ -1,62 +1,38 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import PokemonDetails from './PokemonDetails.tsx';
 
 
+/*
+-I defined the Pokemon appearance in this component.
+-There is a button under the pokemons, which send the props data to the PokemonDetails component,
+and display them in a pop up window.
+*/
 export default function Pokemon(props) {
 
-    const [addModelShow, setAddModelShow] = useState(false)
-    
-    const [selectedUrl, setSelectedUrl] = useState("")
-    const [selectedName, setselectedName] = useState("")
-    const [selectedWeight, setselectedWeight] = useState("")
-    const [selectedHeight, setselectedHeight] = useState("")
-    const [selectedType, setSelectedType] = useState([])
-    const [selectedAbilities, setselectedAbilities] = useState([])
-   
-
-
-
+    const [addModelShow, setAddModelShow] = useState(false)  
     const addModalClose = () => setAddModelShow(false);
-
 
     return (
         <div>
             <Row>
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={props.url} />
+            <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src={props.item.sprites.front_default} />
                     <Card.Body>
                     </Card.Body>
-                        <Card.Title>  <h1>{props.name}</h1>  
+                        <Card.Title>  <h1>{props.item.name}</h1>  
                             </Card.Title>
                        
                         <Button onClick={() => {
-                            setSelectedType(props.type.map((e) =>
-                                e.type.name
-                            ));
-
-                            setselectedAbilities(props.abilities.map((e) =>
-                                e.ability.name
-                            ));
-                            setSelectedUrl(props.url);
-                            setselectedName(props.name);
-                            setselectedHeight(props.height);
-                            setselectedWeight(props.weight);
-                            setAddModelShow(true)
-                        }
-                       } variant="outline-primary"> See Details </Button>
-           
-            
+                            setAddModelShow(true)} } 
+                            variant="outline-primary"> See Details </Button>
                 </Card> 
-
-
             </Row>
-            <PokemonDetails show={addModelShow} url={selectedUrl} name={selectedName} type={selectedType} ability={selectedAbilities} weight={selectedWeight} height={selectedHeight} onHide={addModalClose} />
-          
+            <PokemonDetails show={addModelShow}  item={props.item} onHide={addModalClose} />
         </div>
     )
 }

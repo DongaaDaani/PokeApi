@@ -4,9 +4,15 @@ import { Outlet } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Pokemon from './Pokemon/Pokemon.tsx';
+import Pokemon from './Pokemon.tsx';
 
-export default function Types() {
+/*
+-In this Component I list to the types of pokemons.
+- You can set the search types pokemon in the ListGroup section.
+- After I read all pokemons using Axios, and take them a filter in the "getPokemonsByType" function.
+- In this function I create "filteredPokemon" pokemons list, and display them in the render.
+*/
+export default function PokemonTypesMenu() {
 
     const [types, setTypes] = useState([])
     const [pokemons, setPokemons] = useState([])
@@ -25,10 +31,9 @@ export default function Types() {
     const getTypeInformation = async () => {
         const res = await Axios.get("https://pokeapi.co/api/v2/type")
         setTypes(res.data.results)
-
     }
 
-    const getPokemonInformation = async () => {  
+    const getPokemonInformation = async () => {
         const res = await Axios.get("https://pokeapi.co/api/v2/pokemon/")
         setPokemons(res.data.results)
     }
@@ -45,13 +50,10 @@ export default function Types() {
         })
     }
 
-
     const getPokemonsByType = async () => {
         setFilteredPokemon([])
         {
             pokemonsFullData.filter(filterPokemon => filterPokemon.types[0].type.name.includes(selectedType)).map(filteredName => (
-
-
                 setFilteredPokemon(
                     state => {
                         state = [...state, filteredName]
@@ -60,30 +62,25 @@ export default function Types() {
 
             ))
         }
-        console.log(filteredPokemon)
     }
 
     return (
         <>
-      
-        <h3>Select the type of character</h3>
-        <Row>
-            {types.map((e) => {
-                return (
-                    <div style={{ width: '18rem' }}>
-                        
-                        <ListGroup defaultActiveKey="#link1">
-                            
-                            <ListGroup.Item action onClick={() => { setSelectedType(e.name); InitializePokemons(); getPokemonsByType(); }}>
-                                {e.name}
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </div>
+            <h3>Select the type of character</h3>
+            <Row>
+                {types.map((e) => {
+                    return (
+                        <div style={{ width: '18rem' }}>
+                            <ListGroup>
+                                <ListGroup.Item action onClick={() => { setSelectedType(e.name); InitializePokemons(); getPokemonsByType(); }}>
+                                    {e.name}
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </div>
 
-                );
-            })}
-
-                {filteredPokemon.map((item) => <Col md="auto">   <Pokemon url={item.sprites.front_default} name={item.name} weight={item.weight} height={item.height} abilities={item.abilities} type={item.types} /></Col>)} </Row>
+                    );
+                })}
+                {filteredPokemon.map((item) => <Col md="auto"> <Pokemon item={item} /></Col>)} </Row>
             <Outlet />
         </>
 
