@@ -4,16 +4,15 @@ import React, { useState } from 'react';
 import PokemonList from '../Pokemon/PokemonList.tsx';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
-import { Button } from 'react-bootstrap';
 
 function Search({ details }) {
 
   const [searchField, setSearchField] = useState("");
 
   const filteredPokemons = details.filter(
-    person => {
+    poke => {
       return (
-        person.name.toLowerCase().includes(searchField.toLowerCase()) 
+        poke.name.toLowerCase().includes(searchField.toLowerCase()) 
       );
     }
   );

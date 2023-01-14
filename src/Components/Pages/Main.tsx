@@ -17,7 +17,7 @@ export default function Main(){
     } 
     
     const getPokemonInformation = async () => {
-        const poke = await Axios.get("https://pokeapi.co/api/v2/pokemon/")
+        const poke = await Axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=6000")
         setPokemons(poke.data.results)
         InitializePokemonFullData()
     }

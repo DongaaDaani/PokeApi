@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Pokemon from './Pokemon.tsx';
+import AlterModal from '../AltertTypeModal.tsx';
 
 /*
 -In this Component I list to the types of pokemons.
@@ -13,6 +14,10 @@ import Pokemon from './Pokemon.tsx';
 - In this function I create "filteredPokemon" pokemons list, and display them in the render.
 */
 export default function PokemonTypesMenu() {
+
+
+    const [favoriteModelShow, setFavoriteModelShow] = useState(true)
+    const addFavoriteModalClose = () => setFavoriteModelShow(false);
 
     const [types, setTypes] = useState([])
     const [pokemons, setPokemons] = useState([])
@@ -25,6 +30,7 @@ export default function PokemonTypesMenu() {
         getPokemonInformation()
         getTypeInformation()
         InitializePokemons()
+        getPokemonsByType()
     }, []);
 
 
@@ -34,7 +40,7 @@ export default function PokemonTypesMenu() {
     }
 
     const getPokemonInformation = async () => {
-        const res = await Axios.get("https://pokeapi.co/api/v2/pokemon/")
+        const res = await Axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1000")
         setPokemons(res.data.results)
     }
 
@@ -67,12 +73,13 @@ export default function PokemonTypesMenu() {
     return (
         <>
             <h3>Select the type of character</h3>
+        
             <Row>
                 {types.map((e) => {
                     return (
                         <div style={{ width: '18rem' }}>
                             <ListGroup>
-                                <ListGroup.Item action onClick={() => { setSelectedType(e.name); InitializePokemons(); getPokemonsByType(); }}>
+                                <ListGroup.Item action onClick={() => { setSelectedType(e.name); getPokemonsByType(); }}>
                                     {e.name}
                                 </ListGroup.Item>
                             </ListGroup>
@@ -82,6 +89,9 @@ export default function PokemonTypesMenu() {
                 })}
                 {filteredPokemon.map((item) => <Col md="auto"> <Pokemon item={item} /></Col>)} </Row>
             <Outlet />
+            <AlterModal show={favoriteModelShow} onHide={ ()=>{ getPokemonInformation();
+        getTypeInformation();
+        InitializePokemons(); addFavoriteModalClose()}} />
         </>
 
     );

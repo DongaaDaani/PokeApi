@@ -11,19 +11,34 @@ localStorage. (Store it 'catchedItems' )
 
 */
 export default class PokemonDetails extends Component {
+    
     constructor(props) {
         super(props);
+      
     }
 
     addFavorite = (item) => {
         let array = this.props.favoriteList
-        array.push(item)
-        if (array) {
-            localStorage.setItem('catchedItems', JSON.stringify(array));
+       // array.push(item)
+       var eqaulValue=false
+       array.map((arr)=>{
+        if(arr.name==item.name){
+            alert('You already Catched this pokemon! You can see it the Catch menu!')
+           equalValue=true
+
         }
+    })
+    if (array&& eqaulValue==false) {
+        array.push(item)
+        localStorage.setItem('catchedItems', JSON.stringify(array));
     }
 
+    }
+    
+
+
     render() {
+        //this.setState({class:"success"})
         if (this.props.item) {
             return (
                 <div className="container">
@@ -56,7 +71,7 @@ export default class PokemonDetails extends Component {
                             <Button variant="danger" onClick={this.props.onHide}>
                                 Back
                             </Button>
-                            <Button onClick={() => { this.addFavorite(this.props.item); alert("Catched successfull! You can see the item in your Catched List!") }} variant="success">Catched
+                            <Button onClick={() => { this.addFavorite(this.props.item); alert("Catched successfull! You can see the item in your Catched List!") }} variant="success">Catch
                             </Button>
                         </Modal.Footer>
                     </Modal>
