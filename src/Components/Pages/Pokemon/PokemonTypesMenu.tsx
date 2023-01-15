@@ -40,7 +40,7 @@ export default function PokemonTypesMenu() {
     }
 
     const getPokemonInformation = async () => {
-        const res = await Axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1000")
+        const res = await Axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=3000")
         setPokemons(res.data.results)
     }
 

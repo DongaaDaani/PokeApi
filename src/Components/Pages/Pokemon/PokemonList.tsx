@@ -75,8 +75,7 @@ export default function PokemonList({ filteredPokemons }) {
                     </Col>
                 )}
             </Row>
-            <Button>Previus</Button>
-            <Button>Next</Button>
+            
             <PokemonDetails favoriteList={favoriteItems} show={addModelShow} item={selectedPokemon} onHide={addModalClose} />
             <AlterModal show={favoriteModelShow} onHide={addFavoriteModalClose} />
         </div>
