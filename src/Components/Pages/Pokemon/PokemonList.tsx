@@ -9,17 +9,17 @@ import AlterModal from '../AlertModal.tsx';
 
 export default function PokemonList({ filteredPokemons }) {
 
-    const [addModelShow, setAddModelShow] = useState(false)
+    const [pokemonDetailShow, setPokemonDetailShow] = useState(false)
     const [favoriteModelShow, setFavoriteModelShow] = useState(false)
-    const [selectedPokemon, setSelectedPokemon] = useState("")
-    const [favoriteItems, setFavoriteItems] = useState(JSON.parse(localStorage.getItem('catchedItems')));
 
+    const [selectedPokemon, setSelectedPokemon] = useState("")
+    const [catchItems, setCatchItems] = useState(JSON.parse(localStorage.getItem('catchedItems')));
 
     const [myStyle, setMyStyle] = useState({});
 
-    const addFavoriteModalClose = () => setFavoriteModelShow(false);
 
-
+    const catchPokemonModalClose = () => setFavoriteModelShow(false);
+    
     const handleClick = (id) => {
         setMyStyle(prevState => ({
             ...myStyle,
@@ -28,8 +28,8 @@ export default function PokemonList({ filteredPokemons }) {
     }
 
 
-    const addFavorite = (item) => {
-        let array = favoriteItems
+    const catchPokemon = (item) => {
+        let array = catchItems
         var eqaulValue = false
         array.map((arr) => {
             if (arr.name == item.name) {
@@ -40,14 +40,12 @@ export default function PokemonList({ filteredPokemons }) {
         if (array && eqaulValue == false) {
             array.push(item)
 
-            setFavoriteItems(array)
-            localStorage.setItem('catchedItems', JSON.stringify(favoriteItems));
+            setCatchItems(array)
+            localStorage.setItem('catchedItems', JSON.stringify(catchItems));
         }
     }
 
-    const addModalClose = () => setAddModelShow(false);
-
-
+    const addModalClose = () => setPokemonDetailShow(false);
 
     return (
         <div>
@@ -62,13 +60,13 @@ export default function PokemonList({ filteredPokemons }) {
                             </Card.Title>
                             <Button onClick={() => {
                                 setSelectedPokemon(item)
-                                setAddModelShow(true)
+                                setPokemonDetailShow(true)
                             }
                             } variant="outline-primary"> See Details </Button>
                             <Button variant={myStyle[`${item.id}`]
                                 ? "danger"
                                 : "outline-success"
-                            } onClick={() => { addFavorite(item); setFavoriteModelShow(true); handleClick(item.id) }}>{myStyle[`${item.id}`]
+                            } onClick={() => { catchPokemon(item); setFavoriteModelShow(true); handleClick(item.id) }}>{myStyle[`${item.id}`]
                                 ? "Catched"
                                 : "Catch"}</Button>
                         </Card>
@@ -76,8 +74,8 @@ export default function PokemonList({ filteredPokemons }) {
                 )}
             </Row>
             
-            <PokemonDetails favoriteList={favoriteItems} show={addModelShow} item={selectedPokemon} onHide={addModalClose} />
-            <AlterModal show={favoriteModelShow} onHide={addFavoriteModalClose} />
+            <PokemonDetails favoriteList={catchItems} show={pokemonDetailShow} item={selectedPokemon} onHide={addModalClose} />
+            <AlterModal show={favoriteModelShow} onHide={catchPokemonModalClose} />
         </div>
     );
 }

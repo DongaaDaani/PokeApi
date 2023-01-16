@@ -24,6 +24,7 @@ export default function PokemonTypesMenu() {
     const [pokemonsFullData, setPokemonsFullData] = useState([])
     const [selectedType, setSelectedType] = useState("")
     const [filteredPokemon, setFilteredPokemon] = useState([])
+    
 
 
     useEffect(() => {

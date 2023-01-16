@@ -1,19 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { Modal, Button} from "react-bootstrap";
 
 /*
 -This components is a pop up window. It's appear when somebody start the game,
 and click the Character menu. There is a Welcome text and a back button.
 */
-export default class Welcome extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
+export default function Welcome(props) {
+ 
         return (
             <div className="container">
-                <Modal {...this.props} size="lg" centered>
+                <Modal {...props} size="lg" centered>
                     <Modal.Header closeButton>
                         <Modal.Title >
                             Pokemon Game
@@ -27,13 +23,13 @@ export default class Welcome extends Component {
                    <h2>Enjoy the game!</h2> 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={this.props.onHide}>
+                        <Button variant="danger" onClick={props.onHide}>
                             Back
                         </Button>
                     </Modal.Footer>
                 </Modal>
             </div>
         );
-    }
+    
 }
 
